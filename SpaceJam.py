@@ -25,6 +25,8 @@ class MyApp(ShowBase):
         self.Planet1.reparentTo(self.render)
         self.Planet1.setPos(180, 4300, 70)
         self.Planet1.setScale(350)
+        surf1 = self.loader.loadTexture("./Assets/Planets/Planet-1.jpg")
+        
         
 app = MyApp()
 app.run()
