@@ -15,12 +15,14 @@ class MyApp(ShowBase):
         sys.exit()
 
     def SetupScene(self):
+        # Scenes Background
         self.Universe = self.loader.loadModel('./Assets/Universe/Universe.x')
         self.Universe.reparentTo(self.render)
         self.Universe.setScale(15000)
         space = self.loader.loadTexture("./Assets/Universe/Universe.jpg")
         self.Universe.setTexture(space, 1)
         
+        # Space Station
         self.Station = self.loader.loadModel('./Assets/SpaceStation/spaceStation.x')
         self.Station.reparentTo(self.render)
         self.Station.setPos(50, 3000, 575)
@@ -28,6 +30,7 @@ class MyApp(ShowBase):
         tex1 = self.loader.loadTexture("./Assets/SpaceStation/SpaceStation1_Dif2.png")
         self.Station.setTexture(tex1, 1)
         
+        # Space Ship
         self.Ship = self.loader.loadModel('./Assets/Spaceships/Dumbledore.x')
         self.Ship.reparentTo(self.render)
         self.Ship.setPos(0, 500, -30)
@@ -35,6 +38,7 @@ class MyApp(ShowBase):
         tex2 = self.loader.loadTexture("./Assets/Spaceships/spacejet_C.png")
         self.Station.setTexture(tex2, 1)
         
+        # Planets
         self.Planet1 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
         self.Planet1.reparentTo(self.render)
         self.Planet1.setPos(-1500, 4300, 70)
