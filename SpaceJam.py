@@ -1,6 +1,8 @@
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 import math, sys, random
+import DefensePaths as defensePaths
+import SpaceJamClasses as spaceJamClasses
 
 class MyApp(ShowBase):
     def __init__(self):
@@ -8,79 +10,49 @@ class MyApp(ShowBase):
         
         self.SetupScene()
 
+        fullCycle = 60
+        
+        for j in range(fullCycle):
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone" + str(spaceJamClasses.Drone.droneCount)
+
+        self.DrawCloudDefense(self.Planet1, nickName)
+        self.DrawBaseballSeams(self.Station, nickName, j ,fullCycle, 2)
+        
         
         self.accept('escape', self.quit)
-    # Prepare message if server wants to quit
-    def quit(self):
-        sys.exit()
 
     def SetupScene(self):
         # Scenes Background
-        self.Universe = self.loader.loadModel('./Assets/Universe/Universe.x')
-        self.Universe.reparentTo(self.render)
-        self.Universe.setScale(15000)
-        space = self.loader.loadTexture("./Assets/Universe/Universe.jpg")
-        self.Universe.setTexture(space, 1)
-        
+        self.Universe = spaceJamClasses.Universe(self.loader,'./Assets/Universe/Universe.x', self.render, 'Universe', "./Assets/Universe/Universe.jpg", (0, 0, 0), 15000)
         # Space Station
-        self.Station = self.loader.loadModel('./Assets/SpaceStation/spaceStation.x')
-        self.Station.reparentTo(self.render)
-        self.Station.setPos(50, 3000, 575)
-        self.Station.setScale(10)
-        tex1 = self.loader.loadTexture("./Assets/SpaceStation/SpaceStation1_Dif2.png")
-        self.Station.setTexture(tex1, 1)
-        
+        self.Station = spaceJamClasses.Station(self.loader,'./Assets/SpaceStation/spaceStation.x', self.render, "Space Station", "./Assets/SpaceStation/SpaceStation1_Dif2.png", (50, 3000, 575), 10)
         # Space Ship
-        self.Ship = self.loader.loadModel('./Assets/Spaceships/Dumbledore.x')
-        self.Ship.reparentTo(self.render)
-        self.Ship.setPos(0, 500, -30)
-        self.Ship.setScale(10)
-        tex2 = self.loader.loadTexture("./Assets/Spaceships/spacejet_C.png")
-        self.Station.setTexture(tex2, 1)
-        
+        self.Ship = spaceJamClasses.Ship(self.loader,'./Assets/Spaceships/Dumbledore.x', self.render, "Ship", "./Assets/Spaceships/spacejet_C.png", (0, 500, -30), 10)        
         # Planets
-        self.Planet1 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
-        self.Planet1.reparentTo(self.render)
-        self.Planet1.setPos(-1500, 4300, 70)
-        self.Planet1.setScale(350)
-        surf1 = self.loader.loadTexture("./Assets/Planets/Planet-1.jpg")
-        self.Planet1.setTexture(surf1, 1)
-
-        self.Planet2 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
-        self.Planet2.reparentTo(self.render)
-        self.Planet2.setPos(-270, 1000, -300)
-        self.Planet2.setScale(72)
-        surf2 = self.loader.loadTexture("./Assets/Planets/Planet-2.jpg")
-        self.Planet2.setTexture(surf2, 1)
-
-        self.Planet3 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
-        self.Planet3.reparentTo(self.render)
-        self.Planet3.setPos(400, 2500, 250)
-        self.Planet3.setScale(135)
-        surf3 = self.loader.loadTexture("./Assets/Planets/Planet-3.jpg")
-        self.Planet3.setTexture(surf3, 1)
-
-        self.Planet4 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
-        self.Planet4.reparentTo(self.render)
-        self.Planet4.setPos(1000, 10000, -1180)
-        self.Planet4.setScale(239)
-        surf4 = self.loader.loadTexture("./Assets/Planets/Planet-4.jpg")
-        self.Planet4.setTexture(surf4, 1)
-
-        self.Planet5 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
-        self.Planet5.reparentTo(self.render)
-        self.Planet5.setPos(2000, 6000, -90)
-        self.Planet5.setScale(60)
-        surf5 = self.loader.loadTexture("./Assets/Planets/Planet-5.jpg")
-        self.Planet5.setTexture(surf5, 1)
-
-        self.Planet6 = self.loader.loadModel('./Assets/Planets/protoPlanet.x')
-        self.Planet6.reparentTo(self.render)
-        self.Planet6.setPos(-1116, 5000, 1500)
-        self.Planet6.setScale(240)
-        surf6 = self.loader.loadTexture("./Assets/Planets/Planet-6.jpg")
-        self.Planet6.setTexture(surf6, 1)
+        self.Planet1 = spaceJamClasses.Planet(self.loader, './Assets/Planets/protoPlanet.x', self.render, "Planet1", "./Assets/Planets/Planet-1.jpg", (-1500, 4300, 70), 350)
+        self.Planet2 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet2", "./Assets/Planets/Planet-2.jpg", (-270, 1000, -300), 72)
+        self.Planet3 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet3", "./Assets/Planets/Planet-3.jpg", (400, 2500, 250), 135)
+        self.Planet4 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet4", "./Assets/Planets/Planet-4.jpg", (1000, 10000, -1180), 239)
+        self.Planet5 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet5", "./Assets/Planets/Planet-5.jpg", (2000, 6000, -90), 60)
+        self.Planet6 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet6", "./Assets/Planets/Planet-6.jpg", (-1116, 5000, 1500), 240)
         
-
+        
+    def DrawBaseballSeams(self, centeralObject, droneName, step, numSeams, radius = 1):
+        unitVec = defensePaths.BaseballSeams(step, numSeams, B = 0.4)
+        unitVec.normalize()
+        position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
+        spaceJamClasses.Drone(self.loader,"./Assets/Drone Defender/Drone Defender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)
+    
+    def DrawCloudDefense(self, centeralObject, droneName):
+        unitVec = defensePaths.Cloud()
+        unitVec.normalize()
+        position = unitVec * 500 + centeralObject.modelNode.getPos()
+        spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 10)
+       
+    # Prepare message if server wants to quit 
+    def quit(self):
+        sys.exit()
+        
 app = MyApp()
 app.run()
