@@ -30,19 +30,19 @@ class MyApp(ShowBase):
         # Space Ship
         self.Ship = spaceJamClasses.Ship(self.loader,'./Assets/Spaceships/Dumbledore.x', self.render, "Ship", "./Assets/Spaceships/spacejet_C.png", (0, 500, -30), 10)        
         # Planets
-        self.Planet1 = spaceJamClasses.Planet(self.loader, './Assets/Planets/protoPlanet.x', self.render, "Planet1", "./Assets/Planets/Planet-1.jpg", (-1500, 4300, 70), 350)
-        self.Planet2 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet2", "./Assets/Planets/Planet-2.jpg", (-270, 1000, -300), 72)
-        self.Planet3 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet3", "./Assets/Planets/Planet-3.jpg", (400, 2500, 250), 135)
-        self.Planet4 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet4", "./Assets/Planets/Planet-4.jpg", (1000, 10000, -1180), 239)
-        self.Planet5 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet5", "./Assets/Planets/Planet-5.jpg", (2000, 6000, -90), 60)
-        self.Planet6 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet6", "./Assets/Planets/Planet-6.jpg", (-1116, 5000, 1500), 240)
+        self.Planet1 = spaceJamClasses.Planet(self.loader, './Assets/Planets/protoPlanet.x', self.render, "Planet1", "./Assets/Planets/Planet-1.png", (-1500, 4300, 70), 350)
+        self.Planet2 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet2", "./Assets/Planets/Planet-2.png", (-270, 1000, -300), 72)
+        self.Planet3 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet3", "./Assets/Planets/Planet-3.png", (400, 2500, 250), 135)
+        self.Planet4 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet4", "./Assets/Planets/Planet-4.png", (1000, 10000, -1180), 239)
+        self.Planet5 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet5", "./Assets/Planets/Planet-5.png", (2000, 6000, -90), 60)
+        self.Planet6 = spaceJamClasses.Planet(self.loader,'./Assets/Planets/protoPlanet.x', self.render, "Planet6", "./Assets/Planets/Planet-6.png", (-1116, 5000, 1500), 240)
         
         
     def DrawBaseballSeams(self, centeralObject, droneName, step, numSeams, radius = 1):
         unitVec = defensePaths.BaseballSeams(step, numSeams, B = 0.4)
         unitVec.normalize()
         position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
-        spaceJamClasses.Drone(self.loader,"./Assets/Drone Defender/Drone Defender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)
+        spaceJamClasses.Drone(self.loader,"./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)
     
     def DrawCloudDefense(self, centeralObject, droneName):
         unitVec = defensePaths.Cloud()

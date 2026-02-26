@@ -48,3 +48,12 @@ class Planet(ShowBase):
 class Drone(ShowBase):
     # Number of drones spawned
     droneCount = 0
+    def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
+        self.modelNode = loader.loadModel(modelPath)
+        self.modelNode.reparentTo(parentNode)
+        self.modelNode.setPos(posVec)
+        self.modelNode.setScale(scaleVec)
+
+        self.modelNode.setName(nodeName)
+        tex = loader.loadTexture(texPath)
+        self.modelNode.setTexture(tex, 1)
