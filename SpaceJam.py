@@ -13,11 +13,30 @@ class MyApp(ShowBase):
         fullCycle = 60
         
         for j in range(fullCycle):
-            spaceJamClasses.Drone.droneCount += 1
-            nickName = "Drone" + str(spaceJamClasses.Drone.droneCount)
 
-        self.DrawCloudDefense(self.Planet1, nickName)
-        self.DrawBaseballSeams(self.Station, nickName, j ,fullCycle, 2)
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone1" + str(spaceJamClasses.Drone.droneCount)
+            self.DrawCircleDefense(self.Planet1, nickName, j, fullCycle, 2, "X")
+
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone2" + str(spaceJamClasses.Drone.droneCount)
+            self.DrawCircleDefense(self.Planet2, nickName, j, fullCycle, 2, "Y")
+
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone3" + str(spaceJamClasses.Drone.droneCount)
+            self.DrawCircleDefense(self.Planet3, nickName, j, fullCycle, 2, "Z")
+            
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone4" + str(spaceJamClasses.Drone.droneCount)
+            self.DrawCircleDefense(self.Planet4, nickName, j, fullCycle, 2, "X")
+
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone5" + str(spaceJamClasses.Drone.droneCount)
+            self.DrawCircleDefense(self.Planet5, nickName, j, fullCycle, 2, "Y")
+
+            spaceJamClasses.Drone.droneCount += 1
+            nickName = "Drone6" + str(spaceJamClasses.Drone.droneCount)
+            self.DrawCircleDefense(self.Planet6, nickName, j, fullCycle, 2, "Z")
         
         
         self.accept('escape', self.quit)
@@ -49,7 +68,21 @@ class MyApp(ShowBase):
         unitVec.normalize()
         position = unitVec * 500 + centeralObject.modelNode.getPos()
         spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 10)
-       
+    
+    def DrawCircleDefense(self, centeralObject, droneName, step, numPoints, radius, axis):
+        if axis == "X":
+            unitVec = defensePaths.CircleX(step, numPoints)
+            
+        elif axis == "Y":
+            unitVec = defensePaths.CircleY(step, numPoints)
+            
+        else:
+            unitVec = defensePaths.CircleZ(step, numPoints)
+        
+        unitVec.normalize()
+        position = unitVec * radius * 250 + centeralObject.modelNode.getPos()
+        spaceJamClasses.Drone(self.loader, "./Assets/Drone Defender/DroneDefender.obj", self.render, droneName, "./Assets/Drone Defender/octotoad1_auv.png", position, 5)   
+    
     # Prepare message if server wants to quit 
     def quit(self):
         sys.exit()
